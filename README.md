@@ -260,6 +260,23 @@ This section is about uploading images amazon aws s3 cloud server.
 17. on handleUploadImage set axios.post('api/uploads/s3')
 18. check result on website and s3
 
+## Git filter
+git filter-branch --env-filter '
+OLD_EMAIL="your-old-email@example.com"
+CORRECT_NAME="Your Correct Name"
+CORRECT_EMAIL="your-correct-email@example.com"
+if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_COMMITTER_NAME="$CORRECT_NAME"
+    export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+fi
+if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_AUTHOR_NAME="$CORRECT_NAME"
+    export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+fi
+' --tag-name-filter cat -- --branches --tags
+
 ## Summary
 
 In this tutorial, we have made an eCommerce website like Amazon. Feel free to change this project based on your needs and add it to your portfolio.
